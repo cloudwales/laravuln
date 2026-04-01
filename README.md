@@ -17,8 +17,8 @@ Built for any security-conscious Laravel devs who want to catch critical vulns t
 - Exit code 1 when vulnerabilities are found (perfect for pipelines)
 - Lightweight — only standard library + Cobra + tablewriter + fatih/color
 
-## Testing 
-The included composer.lock has a livewire version that has a severity of 'CRITICAL' to test the script
+## How to use 
+Make sure you have Golang installed and then in the laravuln directory run the below commands.
 
 ```bash
 # Build from source
@@ -30,3 +30,39 @@ sudo mv laravuln /usr/local/bin/
 # Then from any Laravel project run
 ./laravuln 
 ```
+
+## Testing
+The included composer.lock has a livewire version that has a severity of 'CRITICAL' to test the script.
+
+Once you've built the package run
+```bash
+./laravuln 
+
+# Output
+Found 2 packages
+│-------------------│---------│---------------------│----------│
+│      PACKAGE      │ VERSION │       VULN ID       │ SEVERITY │
+│-------------------│---------│---------------------│----------│
+│ livewire/livewire │ 3.6.3   │ GHSA-29cq-5w36-x7w3 │ CRITICAL │
+│-------------------│---------│---------------------│----------│
+│ laravel/framework │ 11.30.0 │ GHSA-546h-56qp-8jmw │ MEDIUM   │
+│-------------------│---------│---------------------│----------│
+│ laravel/framework │ 11.30.0 │ GHSA-78fx-h6xr-vch4 │ MEDIUM   │
+│-------------------│---------│---------------------│----------│
+│ laravel/framework │ 11.30.0 │ GHSA-83wp-f5c3-hqqr │ MEDIUM   │
+│-------------------│---------│---------------------│----------│
+│ laravel/framework │ 11.30.0 │ GHSA-gv7v-rgg6-548h │ HIGH     │
+│-------------------│---------│---------------------│----------│
+
+=== SCAN SUMMARY ===
+Packages scanned: 2
+Vulnerable packages: 2
+Total vulnerabilities found: 5
+CRITICAL: 1
+MEDIUM: 3
+HIGH: 1
+
+VULNERABLE PACKAGE(S) DETECTED — check the table above!
+For more information on the vulnerability goto https://osv.dev/vulnerability/{VULN ID}!
+```
+
