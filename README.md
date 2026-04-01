@@ -21,12 +21,12 @@ Built for any security-conscious Laravel devs who want to catch critical vulns t
 The included composer.lock has a livewire version that has a severity of 'CRITICAL' to test the script
 
 ```bash
-# 1. Build from source
-go build -o laravel-vuln-scan .
-```
+# Build from source
+go build -o laravuln .
 
-## To use on project 
+# Optional: Add systemwide
+sudo mv laravuln /usr/local/bin/
 
-```bash
-./laravel-vuln-scan --path /my-laravel-project --pocs --verbose
+# Then from any Laravel project run
+./laravuln 
 ```
