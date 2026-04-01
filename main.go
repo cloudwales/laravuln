@@ -337,6 +337,7 @@ func runScan(cmd *cobra.Command, args []string) {
 
 	if len(results) > 0 {
 		color.Red("\nVULNERABLE APPLICATION DETECTED — check the table above!")
+		color.Red("\nFor more information on the vulnerability goto https://osv.dev/vulnerability/{VULN ID}!")
 		if checkPocs {
 			color.Red("PoC hunting enabled — review highlighted references immediately!")
 		}
