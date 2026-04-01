@@ -23,9 +23,6 @@ The included composer.lock has a livewire version that has a severity of 'CRITIC
 ```bash
 # 1. Build from source
 go build -o laravel-vuln-scan .
-
-# OR. 2. Run scan from teh pre-built
-./laravel-vuln-scan --path . --pocs --verbose
 ```
 
 ## To use on project 
