@@ -118,19 +118,19 @@ func main() {
 func runScan(cmd *cobra.Command, args []string) {
 	lockPath := filepath.Join(path, "composer.lock")
 	if _, err := os.Stat(lockPath); os.IsNotExist(err) {
-		color.Red("❌ composer.lock not found at %s", lockPath)
+		color.Red("x composer.lock not found at %s", lockPath)
 		os.Exit(1)
 	}
 
 	data, err := os.ReadFile(lockPath)
 	if err != nil {
-		color.Red("❌ Failed to read composer.lock: %v", err)
+		color.Red("x Failed to read composer.lock: %v", err)
 		os.Exit(1)
 	}
 
 	var lock ComposerLock
 	if err := json.Unmarshal(data, &lock); err != nil {
-		color.Red("❌ Failed to parse composer.lock: %v", err)
+		color.Red("x Failed to parse composer.lock: %v", err)
 		os.Exit(1)
 	}
 
@@ -145,10 +145,10 @@ func runScan(cmd *cobra.Command, args []string) {
 		pkgMap[key] = p
 	}
 
-	color.Green("✅ Found %d packages", len(pkgMap))
+	color.Green("Found %d packages", len(pkgMap))
 
 	if !osvScan {
-		color.Yellow("⚠️  OSV scan disabled — nothing to check")
+		color.Yellow("OSV scan disabled — nothing to check")
 		os.Exit(0)
 	}
 
@@ -173,14 +173,14 @@ func runScan(cmd *cobra.Command, args []string) {
 	client := &http.Client{Timeout: 20 * time.Second}
 	resp, err := client.Do(req)
 	if err != nil {
-		color.Red("❌ OSV API failed: %v", err)
+		color.Red("x OSV API failed: %v", err)
 		os.Exit(1)
 	}
 	defer resp.Body.Close()
 
 	var osvResp OSVResponse
 	if err := json.NewDecoder(resp.Body).Decode(&osvResp); err != nil {
-		color.Red("❌ Failed to decode OSV response: %v", err)
+		color.Red("x Failed to decode OSV response: %v", err)
 		os.Exit(1)
 	}
 
@@ -300,7 +300,7 @@ func runScan(cmd *cobra.Command, args []string) {
 		}
 		if checkPocs {
 			if r.HasPoC {
-				pocStr := redSprint("🚨 POSSIBLE POC FOUND")
+				pocStr := redSprint("POSSIBLE POC FOUND")
 				if verbose {
 					pocStr += "\n" + strings.Join(r.PoCLinks, "\n")
 				}
@@ -336,14 +336,14 @@ func runScan(cmd *cobra.Command, args []string) {
 	}
 
 	if len(results) > 0 {
-		color.Red("\n⚠️  VULNERABLE APPLICATION DETECTED — check the table above!")
+		color.Red("\nVULNERABLE APPLICATION DETECTED — check the table above!")
 		if checkPocs {
-			color.Red("🔥 PoC hunting enabled — review highlighted references immediately!")
+			color.Red("PoC hunting enabled — review highlighted references immediately!")
 		}
 		os.Exit(1)
 	}
 
-	color.Green("\n✅ No known vulnerabilities. Ship it.")
+	color.Green("\nNo known vulnerabilities. Ship it.")
 }
 
 func getSeverity(detail VulnDetail) string {
