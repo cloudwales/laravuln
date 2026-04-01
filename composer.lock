@@ -1,0 +1,14 @@
+{
+    "_readme": ["This is a fake composer.lock for testing your vuln scanner"],
+    "packages": [
+        {
+            "name": "livewire/livewire",
+            "version": "3.6.3"
+        },
+        {
+            "name": "laravel/framework",
+            "version": "11.30.0"  
+        }
+    ],
+    "packages-dev": []
+}
